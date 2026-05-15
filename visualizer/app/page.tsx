@@ -40,10 +40,15 @@ export default function HomePage() {
             Paste a friction log
           </h1>
           <p className="text-sm text-muted-foreground">
-            Drop a{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 text-[0.85em] font-mono">
-              friction-log.md
-            </code>{" "}
+            Drop a log produced by the{" "}
+            <a
+              href="https://github.com/aurorascharff/agent-friction-skill"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline decoration-border underline-offset-2 hover:decoration-foreground/40 transition-colors"
+            >
+              agent-friction skill
+            </a>{" "}
             and view it cleanly. Nothing leaves your browser.
           </p>
         </div>

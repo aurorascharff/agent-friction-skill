@@ -11,7 +11,7 @@ Document agentic developer experience friction as it's encountered during a deve
 
 When invoked:
 
-1. **Identify the output file** — use the argument if provided. Otherwise, if this run scaffolds a new `fl-<feature>/` folder (see #7), the log lives **inside** that folder as `fl-<feature>/friction-log.md`. If no scaffold was created, default to `friction-log.md` in the current working directory. Keeping the log next to the code it describes makes the artifact self-contained: zipping or sharing the `fl-` folder ships the log with it.
+1. **Identify the output file** — use the argument if provided. Otherwise, name the log after the task with the `fl-` prefix: `fl-<feature>.md`. If this run scaffolds a new `fl-<feature>/` folder (see #7), the log lives **inside** that folder as `fl-<feature>/fl-<feature>.md`. If no scaffold was created, write `fl-<feature>.md` in the current working directory. Keeping the log next to the code it describes makes the artifact self-contained: zipping or sharing the `fl-` folder ships the log with it. The `fl-` prefix makes the file recognisable as a friction log even when it has been moved out of its folder.
 2. **Identify the task** from the user's first message. The user's first message IS the task. Do not ask clarifying questions before starting unless you are genuinely blocked.
 3. **Identify the input** — if the task involves an existing codebase, include it as **Input** in the log header. Use the URL the user provided; otherwise use the local path.
 4. **Record the prompt** — write the user's initial request verbatim into the log before doing any work.
