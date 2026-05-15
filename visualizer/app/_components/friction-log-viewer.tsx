@@ -227,52 +227,27 @@ function RunInfoGrid({ entries }: { entries: LogEntry[] }) {
   );
 }
 
-function ToolTimeline({ entries }: { entries: LogEntry[] }) {
-  // Renders the Tool Timeline section as a terminal-style block: dark
-  // tinted background, monospace, a `$` prompt prefix per line, and a
-  // greenish timestamp accent. Matches the section's role as a
-  // chronological log of tool invocations.
+function PromptBlock({ entries }: { entries: LogEntry[] }) {
+  // Renders the Prompt section as a terminal-style block: dark tinted
+  // background, monospace, a `>` prompt prefix per line. Makes the
+  // user's verbatim request visually distinct from the agent's
+  // narrative below.
   const lines = entries
-    .map((entry) => entry.text.trim())
+    .map((entry) => entry.text.replace(/^>\s?/, "").trim())
     .filter((line) => line.length > 0);
   if (lines.length === 0) {
-    return (
-      <p className="text-xs text-muted-foreground/50 py-1">No tool calls</p>
-    );
+    return <p className="text-xs text-muted-foreground/50 py-1">No prompt</p>;
   }
   return (
     <div className="rounded-md border border-border/60 bg-black/40 px-3 py-2 font-mono text-xs leading-relaxed text-foreground/80 overflow-x-auto">
-      {lines.map((line, i) => {
-        // Best-effort extraction of `HH:MM:SS UTC — tool: description`
-        const m = line.match(
-          /^`?(\d{1,2}:\d{2}:\d{2}\s*UTC)`?\s*[—-]\s*(?:(\w+):\s*)?(.*)$/,
-        );
-        if (m) {
-          const [, ts, tool, rest] = m;
-          return (
-            <div key={i} className="flex items-start gap-2 py-0.5">
-              <span className="select-none text-green-500/70 shrink-0">$</span>
-              <span className="select-none text-green-400/80 shrink-0">
-                {ts}
-              </span>
-              {tool && (
-                <span className="text-purple-300/80 shrink-0">{tool}</span>
-              )}
-              <span className="text-foreground/80 [overflow-wrap:break-word] min-w-0">
-                <FormattedText text={rest!} />
-              </span>
-            </div>
-          );
-        }
-        return (
-          <div key={i} className="flex items-start gap-2 py-0.5">
-            <span className="select-none text-green-500/70 shrink-0">$</span>
-            <span className="text-foreground/80 [overflow-wrap:break-word] min-w-0">
-              <FormattedText text={line} />
-            </span>
-          </div>
-        );
-      })}
+      {lines.map((line, i) => (
+        <div key={i} className="flex items-start gap-2 py-0.5">
+          <span className="select-none text-green-500/70 shrink-0">&gt;</span>
+          <span className="text-foreground/80 [overflow-wrap:break-word] min-w-0">
+            <FormattedText text={line} />
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -288,8 +263,8 @@ function SectionToggle({
 }) {
   const isEmpty =
     section.entries.length === 0 && section.subsections.length === 0;
-  const isRunInfo = section.title === "Run Info" || section.title === "Prompt";
-  const isToolTimeline = section.title.toLowerCase() === "tool timeline";
+  const isRunInfo = section.title === "Run Info";
+  const isPrompt = section.title === "Prompt";
 
   const groupClass = nested ? "group/sub" : "group/section";
   const chevronRotate = nested
@@ -323,8 +298,8 @@ function SectionToggle({
         )}
       </summary>
       <div className="mt-1 mb-2 ml-3 sm:ml-6">
-        {isToolTimeline ? (
-          <ToolTimeline entries={section.entries} />
+        {isPrompt ? (
+          <PromptBlock entries={section.entries} />
         ) : isRunInfo ? (
           <RunInfoGrid entries={section.entries} />
         ) : (
