@@ -2,9 +2,11 @@
 
 A standalone Next.js app for viewing a `friction-log.md` file in a clean, collapsible layout.
 
+Live at **<https://agent-friction-skill.vercel.app/>**.
+
 ## Routes
 
-- **`/`** — empty state shows a centered paste box. As soon as you paste content, the page swaps to the rendered viewer with a "Paste another" / "Copy share link" toolbar. Drafts live in `localStorage` only.
+- **`/`** — centered paste box plus a "Fill with example" button. Paste a log or click "View" to navigate to `/view#log=…`.
 - **`/view#log=<payload>`** — render a log from a URL hash. Click "Copy share link" to build one. The log never leaves the browser; the fragment is gzip+base64-encoded client-side.
 
 ## Local development
