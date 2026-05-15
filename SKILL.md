@@ -41,7 +41,7 @@ When invoked:
     - If you are running low on context or steps, STOP working on the task and immediately write the complete final log with Summary and Action Items based on what you have so far. A complete log with fewer log entries is far better than an incomplete log. Never end the log mid-sentence or without Summary + Action Items — these are mandatory regardless of how the run went.
 19. **Always write a `## Tool Timeline` section.** Place it directly after `## Prompt`, before `## Summary`. List your tool calls chronologically as `- HH:MM:SS — <tool>: <short description>`. Write it yourself even if your harness also appends one — the log is read after the run, often pasted into a viewer that doesn't have access to harness-side appendices, so the timeline must be inside the file itself. Keep entries terse; this section is reference material, not narrative.
 
-Follow [references/template.md](references/template.md) for the exact output format and [references/example.md](references/example.md) for a real example. Behavior guidance — when to log, what counts as friction, source tags — lives in [references/agent-behavior.md](references/agent-behavior.md).
+Follow [references/template.md](references/template.md) for the exact output format and [references/example.md](references/example.md) for a real example. Behavior guidance — when to log, what counts as friction, source tags — lives in [references/agent-behavior.md](references/agent-behavior.md). [references/reading-the-log.md](references/reading-the-log.md) explains how a human should read the finished log (severity legend, action-item priority, source-tag trust levels).
 
 ## Severity Levels
 

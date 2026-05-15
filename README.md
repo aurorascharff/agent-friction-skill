@@ -28,6 +28,7 @@ Paste a finished friction log into **[agent-friction-skill.vercel.app](https://a
 
 ## References
 
-- `references/agent-behavior.md` — how the agent should behave while this skill is active
+- `references/reading-the-log.md` — how a **human** should read the output (severity, action-item priority, source tags)
+- `references/agent-behavior.md` — how the **agent** should behave while this skill is active
 - `references/template.md` — friction log output template
 - `references/example.md` — real friction log from an actual agent run
