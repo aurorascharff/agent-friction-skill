@@ -12,6 +12,28 @@ type State =
   | { kind: "ok"; markdown: string }
   | { kind: "error"; message: string };
 
+function readEntryId(): string | null {
+  if (typeof window === "undefined") return null;
+  const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+  return params.get("entry");
+}
+
+function scrollAndHighlight(entryId: string) {
+  const el = document.getElementById(entryId);
+  if (!el) return;
+  // Force-open every <details> ancestor so the target row is visible.
+  let parent: HTMLElement | null = el.parentElement;
+  while (parent) {
+    if (parent.tagName === "DETAILS") {
+      (parent as HTMLDetailsElement).open = true;
+    }
+    parent = parent.parentElement;
+  }
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  el.classList.add("animate-highlight");
+  window.setTimeout(() => el.classList.remove("animate-highlight"), 2600);
+}
+
 export default function ViewPage() {
   const [state, setState] = useState<State>({ kind: "loading" });
   const [copied, setCopied] = useState(false);
@@ -30,6 +52,18 @@ export default function ViewPage() {
         setState({ kind: "error", message });
       });
   }, []);
+
+  // After the viewer renders, if the URL fragment carried an `entry=<id>`,
+  // expand its ancestor sections, scroll to it, and flash it. Two RAFs to
+  // give the section's collapsed → open transition a frame to land.
+  useEffect(() => {
+    if (state.kind !== "ok") return;
+    const entryId = readEntryId();
+    if (!entryId) return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => scrollAndHighlight(entryId));
+    });
+  }, [state]);
 
   async function handleCopyLink() {
     try {
