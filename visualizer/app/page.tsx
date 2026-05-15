@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Sparkles } from "lucide-react";
 import { PasteForm } from "./_components/paste-form";
 
 export const metadata: Metadata = {
@@ -14,8 +13,7 @@ export default function HomePage() {
   return (
     <main className="relative">
       {/* Vercel-style ambient background: a top radial halo plus a faint
-          dotted grid masked to fade out toward the edges. Pointer-events
-          off so it never intercepts clicks on the form below. */}
+          dotted grid masked to fade out toward the edges. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
@@ -26,34 +24,16 @@ export default function HomePage() {
 
       <div className="flex flex-col items-center pt-10 sm:pt-14 pb-12">
         <div className="w-full max-w-2xl">
-          {/* Eyebrow pill linking to the skill source */}
-          <div className="flex justify-center mb-4">
-            <a
-              href="https://github.com/aurorascharff/agent-friction-skill"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-card/60 backdrop-blur px-2.5 py-0.5 text-[11px] text-muted-foreground hover:text-foreground hover:bg-card hover:border-foreground/20 transition-colors"
-            >
-              <Sparkles className="w-3 h-3 text-foreground/60 group-hover:text-foreground transition-colors" />
-              agent-friction skill
-              <span className="text-muted-foreground/60 group-hover:translate-x-0.5 transition-transform">
-                →
-              </span>
-            </a>
-          </div>
-
-          {/* Headline — clean, confident, no .md kicker. */}
-          <h1 className="text-center text-3xl sm:text-4xl font-semibold tracking-tight mb-2 [text-wrap:balance] bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
-            Friction Log Viewer
+          {/* Headline */}
+          <h1 className="text-center text-4xl sm:text-5xl font-semibold tracking-tight mb-3 text-foreground">
+            Friction Log.
           </h1>
-          <p className="text-center text-sm text-muted-foreground mb-6 [text-wrap:balance] max-w-md mx-auto">
-            Paste a log an agent produced and read it cleanly. Nothing leaves
-            your browser.
+          <p className="text-center text-sm text-muted-foreground mb-8 [text-wrap:balance] max-w-md mx-auto">
+            Paste an agent&apos;s friction log to read it cleanly. Nothing
+            leaves your browser.
           </p>
 
-          {/* Editor-style card: macOS traffic lights + filename, then the
-              textarea inside. The PasteForm is borderless so the card's
-              chrome and the textarea share one rounded surface. */}
+          {/* Editor-style card */}
           <div className="rounded-xl border border-border bg-card/80 backdrop-blur shadow-2xl shadow-black/40 overflow-hidden">
             <div className="flex items-center gap-2 px-4 py-2 border-b border-border bg-black/40">
               <div className="flex gap-1.5" aria-hidden>
@@ -68,8 +48,18 @@ export default function HomePage() {
             <PasteForm />
           </div>
 
-          <p className="text-center text-[11px] text-muted-foreground/60 mt-4">
-            Logs are encoded into the URL hash — never sent to a server.
+          {/* Credit + privacy line below the card */}
+          <p className="text-center text-[11px] text-muted-foreground/70 mt-6">
+            Created with the{" "}
+            <a
+              href="https://github.com/aurorascharff/agent-friction-skill"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/80 hover:text-foreground underline decoration-border underline-offset-2 hover:decoration-foreground/40 transition-colors"
+            >
+              agent-friction skill
+            </a>
+            . Logs encode into the URL hash — never sent to a server.
           </p>
         </div>
       </div>
