@@ -9,6 +9,10 @@ A skill for **AI agents** to document agentic developer experience friction as t
 3. Folds any out-of-band user replies the harness surfaces mid-run (chat-thread messages, queued instructions) into the log as they arrive
 4. Produces a structured friction log in markdown
 
+## Example prompt
+
+> Build a Next.js product grid and detail page. Clicking a thumbnail should morph into the detail image using React's <ViewTransition> component. Going back should reverse it. Use this skill: https://github.com/aurorascharff/agent-friction-skill
+
 ## Output format
 
 - **Header** — date, model, harness, task description, repo link, output link, cumulative build time
