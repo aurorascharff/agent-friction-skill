@@ -323,7 +323,9 @@ function SectionToggle({
         )}
       </summary>
       <div className="mt-1 mb-2 ml-3 sm:ml-6">
-        {isRunInfo ? (
+        {isToolTimeline ? (
+          <ToolTimeline entries={section.entries} />
+        ) : isRunInfo ? (
           <RunInfoGrid entries={section.entries} />
         ) : (
           section.entries.map((entry, i) => (
