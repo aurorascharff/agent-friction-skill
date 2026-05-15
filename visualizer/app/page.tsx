@@ -29,8 +29,16 @@ export default function HomePage() {
             Friction Log.
           </h1>
           <p className="text-center text-sm text-muted-foreground mb-8 [text-wrap:balance] max-w-md mx-auto">
-            Paste an agent&apos;s friction log to read it cleanly. Nothing
-            leaves your browser.
+            Paste a log from the{" "}
+            <a
+              href="https://github.com/aurorascharff/agent-friction-skill"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/90 hover:text-foreground underline decoration-border underline-offset-2 hover:decoration-foreground/40 transition-colors"
+            >
+              agent-friction skill
+            </a>{" "}
+            to read it cleanly. Nothing leaves your browser.
           </p>
 
           {/* Editor-style card */}
