@@ -24,15 +24,15 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_20%,black,transparent_75%)]" />
       </div>
 
-      <div className="flex flex-col items-center justify-center min-h-[80vh] py-8 sm:py-12">
+      <div className="flex flex-col items-center pt-10 sm:pt-14 pb-12">
         <div className="w-full max-w-2xl">
           {/* Eyebrow pill linking to the skill source */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4">
             <a
               href="https://github.com/aurorascharff/agent-friction-skill"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-card/60 backdrop-blur px-3 py-1 text-[11px] text-muted-foreground hover:text-foreground hover:bg-card hover:border-foreground/20 transition-colors"
+              className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-card/60 backdrop-blur px-2.5 py-0.5 text-[11px] text-muted-foreground hover:text-foreground hover:bg-card hover:border-foreground/20 transition-colors"
             >
               <Sparkles className="w-3 h-3 text-foreground/60 group-hover:text-foreground transition-colors" />
               agent-friction skill
@@ -42,20 +42,11 @@ export default function HomePage() {
             </a>
           </div>
 
-          {/* Headline — big tight sans + a monospace `.md` kicker that
-              leans into the file-viewer identity. */}
-          <h1 className="text-center text-5xl sm:text-6xl font-semibold tracking-tighter mb-3 [text-wrap:balance]">
-            <span className="bg-gradient-to-b from-foreground via-foreground/90 to-foreground/40 bg-clip-text text-transparent">
-              Friction Log
-            </span>
-            <span
-              aria-hidden
-              className="inline-block ml-1 -translate-y-1.5 sm:-translate-y-2 font-mono text-2xl sm:text-3xl text-foreground/30"
-            >
-              .md
-            </span>
+          {/* Headline — clean, confident, no .md kicker. */}
+          <h1 className="text-center text-3xl sm:text-4xl font-semibold tracking-tight mb-2 [text-wrap:balance] bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Friction Log Viewer
           </h1>
-          <p className="text-center text-base text-muted-foreground mb-10 [text-wrap:balance] max-w-md mx-auto">
+          <p className="text-center text-sm text-muted-foreground mb-6 [text-wrap:balance] max-w-md mx-auto">
             Paste a log an agent produced and read it cleanly. Nothing leaves
             your browser.
           </p>
@@ -64,7 +55,7 @@ export default function HomePage() {
               textarea inside. The PasteForm is borderless so the card's
               chrome and the textarea share one rounded surface. */}
           <div className="rounded-xl border border-border bg-card/80 backdrop-blur shadow-2xl shadow-black/40 overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-black/40">
+            <div className="flex items-center gap-2 px-4 py-2 border-b border-border bg-black/40">
               <div className="flex gap-1.5" aria-hidden>
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500/40" />
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
@@ -77,7 +68,7 @@ export default function HomePage() {
             <PasteForm />
           </div>
 
-          <p className="text-center text-[11px] text-muted-foreground/60 mt-8">
+          <p className="text-center text-[11px] text-muted-foreground/60 mt-4">
             Logs are encoded into the URL hash — never sent to a server.
           </p>
         </div>

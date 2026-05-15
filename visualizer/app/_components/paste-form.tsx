@@ -45,7 +45,7 @@ export function PasteForm() {
         className="w-full min-h-[220px] sm:min-h-[280px] bg-transparent text-foreground px-4 py-3 font-mono text-xs leading-relaxed placeholder:text-muted-foreground/40 resize-y focus:outline-none transition-colors"
       />
 
-      <div className="flex items-center justify-between gap-2 border-t border-border bg-black/30 px-3 py-2">
+      <div className="flex items-center justify-between gap-2 border-t border-border bg-black/30 px-3 py-3">
         <button
           onClick={() => setText(EXAMPLE_LOG)}
           disabled={isPending}
