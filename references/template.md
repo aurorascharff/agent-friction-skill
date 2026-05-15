@@ -24,6 +24,16 @@
 
 ---
 
+## Tool Timeline
+
+[Chronological list of every tool call you made. Always include — readers may open the log in a viewer that has no access to harness-side appendices. Terse one-liners only; the narrative lives in `## Log`. Renders collapsed in the viewer.]
+
+- `13:42:07 UTC` — bash: `cp -r /vercel/sandbox/base-app /vercel/sandbox/fl-foo`
+- `13:42:31 UTC` — write_file: `src/app/page.tsx`
+- `13:42:34 UTC` — bash: `npx next dev --port 3000`
+
+---
+
 ## Summary
 
 [2–4 sentences. What went well? What was the biggest pain point? What's the blast radius of the friction?]
@@ -64,14 +74,6 @@
   - > **User:** [verbatim out-of-band reply from the user, if one arrived at this point]
   - > **Agent:** [verbatim reply you sent back, if any]
   - **Resolution:** [what you did to fix it and why it worked — or "unresolved" if you moved on] [source-tag]
-
-## Tool Timeline (optional)
-
-[Only include this section if your harness does NOT auto-append it. If the harness appends a tool timeline for you, do not write one — your job is the human-readable narrative. If you do write one yourself, list tool calls chronologically with timestamps:]
-
-- `13:42:07 UTC` building app...
-- `13:42:31 UTC` writing app/page.tsx...
-- `13:42:34 UTC` starting dev server...
 
 ## Skill Feedback
 

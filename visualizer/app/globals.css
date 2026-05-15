@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: #0a0a0a;
+  --color-foreground: #fafafa;
+  --color-muted: #262626;
+  --color-muted-foreground: #a1a1aa;
+  --color-border: #27272a;
+  --color-card: #141414;
+  --color-card-foreground: #fafafa;
+  --color-accent: #18181b;
+  --color-accent-foreground: #fafafa;
+  --color-destructive: #ef4444;
+  --color-success: #22c55e;
+
+  --color-severity-critical: #ef4444;
+  --color-severity-major: #f59e0b;
+  --color-severity-minor: #3b82f6;
+  --color-severity-info: #6b7280;
+
+  --radius: 0.5rem;
+}
+
+body {
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  /* Required so `block-size: 0 → auto` interpolates on <details>, otherwise
+     opening a section jumps and looks jittery. */
+  interpolate-size: allow-keywords;
+}
+
+::details-content {
+  overflow: clip;
+  block-size: 0;
+  opacity: 0;
+  transition:
+    block-size 150ms ease-out,
+    opacity 150ms ease-out,
+    content-visibility 150ms allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+code,
+pre,
+kbd {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}

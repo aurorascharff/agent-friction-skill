@@ -15,6 +15,32 @@
 
 ---
 
+## Tool Timeline
+
+- `12:14:02 UTC` — bash: `cp -r /vercel/sandbox/base-app /vercel/sandbox/fl-viewtransition`
+- `12:14:09 UTC` — bash: `npx next --version`
+- `12:14:18 UTC` — web_search: `Next.js ViewTransition shared element`
+- `12:14:24 UTC` — fetch_url: `https://nextjs.org/docs/app/guides/view-transitions`
+- `12:15:01 UTC` — write_file: `next.config.ts`
+- `12:15:08 UTC` — write_file: `lib/products.ts`
+- `12:15:16 UTC` — write_file: `app/page.tsx`
+- `12:15:22 UTC` — write_file: `app/products/[id]/page.tsx`
+- `12:15:29 UTC` — write_file: `components/ProductGrid.tsx`
+- `12:15:34 UTC` — write_file: `components/ProductDetail.tsx`
+- `12:15:41 UTC` — write_file: `app/globals.css`
+- `12:15:48 UTC` — bash: `npx next build` _(2.7s)_
+- `12:16:12 UTC` — bash: `npx next dev --port 3000`
+- `12:16:24 UTC` — sandbox_http: `GET /` _(500: hostname not configured)_
+- `12:16:31 UTC` — write_file: `next.config.ts` _(add remotePatterns)_
+- `12:16:38 UTC` — bash: `npx next build` _(2.5s)_
+- `12:16:51 UTC` — sandbox_http: `GET /` _(200)_
+- `12:16:53 UTC` — sandbox_http: `GET /products/1` _(200)_
+- `12:17:02 UTC` — bash: `grep -E 'vt-name|vt-share|nav-forward' .next/server/...`
+- `12:17:18 UTC` — bash: `node -e "..."` _(verify react export split)_
+- `12:17:35 UTC` — write_file: `friction-log.md`
+
+---
+
 ## Summary
 
 The core `<ViewTransition>` shared-element pattern was straightforward once the right docs were found — the official Next.js guide (updated 2026-05-07) is excellent and the build succeeded on the first attempt. However, there are three meaningful friction points: (1) there's a **hidden React version split** where `import { ViewTransition } from 'react'` silently works at build/runtime because Next.js aliases `react` to a canary bundle, but the user-space `react@19.2.4` package has no `ViewTransition` export — making the import feel magical; (2) `next/image` with external URLs throws a **runtime 500** instead of failing at build time; (3) the `transitionTypes` prop on `<Link>` **leaves no trace in SSR HTML**, making it impossible to verify server-side correctness without a real browser.
