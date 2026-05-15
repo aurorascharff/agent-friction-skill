@@ -207,37 +207,22 @@ function EntryToggle({
 }
 
 function RunInfoGrid({ entries }: { entries: LogEntry[] }) {
-  const kvPairs: { key: string; value: string }[] = [];
-  const other: LogEntry[] = [];
-
-  for (const entry of entries) {
-    const match = entry.text.match(/^\*\*([^*]+?):?\*\*\s*(.+)$/);
-    if (match) {
-      kvPairs.push({ key: match[1]!, value: match[2]! });
-    } else if (entry.text.trim()) {
-      other.push(entry);
-    }
-  }
-
+  // Render Run Info / Prompt entries with the same paragraph rhythm as
+  // every other section so the dropdowns look visually consistent.
+  // `FormattedText` already turns the `**Key:**` prefix into a bold span,
+  // which carries the key/value distinction without a separate dl grid.
   return (
-    <div className="space-y-1">
-      {kvPairs.length > 0 && (
-        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
-          {kvPairs.map((pair, i) => (
-            <div key={i} className="contents">
-              <dt className="text-muted-foreground">{pair.key}</dt>
-              <dd className="text-foreground/80 [overflow-wrap:break-word]">
-                <FormattedText text={pair.value} />
-              </dd>
-            </div>
-          ))}
-        </dl>
-      )}
-      {other.map((entry, i) => (
-        <p key={i} className="text-sm text-foreground/80">
-          <FormattedText text={entry.text} />
-        </p>
-      ))}
+    <div>
+      {entries
+        .filter((entry) => entry.text.trim())
+        .map((entry, i) => (
+          <p
+            key={i}
+            className="py-1.5 sm:py-1 text-sm leading-relaxed text-foreground/80 [overflow-wrap:break-word]"
+          >
+            <FormattedText text={entry.text} />
+          </p>
+        ))}
     </div>
   );
 }
