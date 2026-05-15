@@ -218,7 +218,7 @@ function RunInfoGrid({ entries }: { entries: LogEntry[] }) {
         .map((entry, i) => (
           <p
             key={i}
-            className="py-1.5 sm:py-1 text-sm leading-relaxed text-foreground/80 [overflow-wrap:break-word]"
+            className="pl-5 sm:pl-6 py-1.5 sm:py-1 text-sm leading-relaxed text-foreground/80 [overflow-wrap:break-word]"
           >
             <FormattedText text={entry.text} />
           </p>
