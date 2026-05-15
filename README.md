@@ -6,7 +6,7 @@ A skill for **AI agents** to document agentic developer experience friction as t
 
 1. Agent attempts the task the user specifies
 2. Logs friction in real time as it's encountered — what was tried, what happened, how it resolved
-3. Pushes uncertainty into the log as friction rather than parking the run to ask the user. If the harness injects an out-of-band user reply mid-run (chat-thread reply, queued message), the agent folds it into the log and continues
+3. Folds any out-of-band user replies the harness surfaces mid-run (chat-thread messages, queued instructions) into the log as they arrive
 4. Produces a structured friction log in markdown
 
 ## Output format
