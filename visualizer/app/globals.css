@@ -53,3 +53,28 @@ pre,
 kbd {
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
 }
+
+/* Yellow flash applied to a log entry when /view#entry=<id> deep-links to it.
+   Ported from the DX Agent dashboard so a shared anchor link feels the same. */
+@keyframes highlight-flash {
+  0%,
+  15% {
+    background-color: oklch(0.4 0.08 85);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+@utility animate-highlight {
+  animation: highlight-flash 2.5s ease-out both;
+  border-radius: 0.375rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes highlight-flash {
+    0%,
+    100% {
+      background-color: transparent;
+    }
+  }
+}

@@ -124,9 +124,18 @@ function AnchorLink({ id }: { id: string }) {
       onClick={(e) => {
         e.stopPropagation();
         e.preventDefault();
-        const url = `${window.location.pathname}${window.location.search}#${id}`;
-        window.history.replaceState(null, "", `#${id}`);
-        navigator.clipboard.writeText(`${window.location.origin}${url}`);
+        // Preserve the existing hash (which carries `log=<encoded>` on the
+        // /view route) and add an `entry=<id>` param. Bare `#<id>` would
+        // throw away the encoded log and break shareable deep-links.
+        const params = new URLSearchParams(
+          window.location.hash.replace(/^#/, ""),
+        );
+        params.set("entry", id);
+        const newHash = `#${params.toString()}`;
+        window.history.replaceState(null, "", newHash);
+        navigator.clipboard.writeText(
+          `${window.location.origin}${window.location.pathname}${window.location.search}${newHash}`,
+        );
         setCopied(true);
         setTimeout(() => setCopied(false), 1500);
       }}
