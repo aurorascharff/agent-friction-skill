@@ -74,14 +74,20 @@
   - > **User:** [verbatim out-of-band reply from the user, if one arrived at this point]
   - > **Agent:** [verbatim reply you sent back, if any]
   - **Resolution:** [what you did to fix it and why it worked — or "unresolved" if you moved on] [source-tag]
+```
 
+---
+
+## Optional: Skill Feedback (added later, NOT by the initial agent run)
+
+Do not include a `## Skill Feedback` section in the initial log — an empty placeholder section is uglier than no section at all. Only append it later, after the user reviews the log and explicitly identifies a place where the skill itself caused the agent to behave incorrectly. The shape, when it does get added:
+
+```markdown
 ## Skill Feedback
-
-[Meta-feedback about this skill's own behavior during the task — added by the user after reviewing the log. This section captures places where the agent behaved incorrectly because the skill itself lacked the right instruction — e.g. silently filled gaps with training data, missed an out-of-band reply, wrote placeholders instead of progressive logs, or skipped a required section. This is NOT DX feedback for the developer — it is feedback for improving the skill.
-
-If the agent's failure was caused by the task environment (e.g. a misleading error message, missing docs), that belongs in Action Items, not here.]
 
 - 🔁 [what the agent did wrong]
   - [why — was this a missing instruction, an unclear trigger, or a wrong default behavior?]
   - [what the skill should say instead]
 ```
+
+Captures places where the agent behaved incorrectly *because the skill itself lacked the right instruction* — e.g. silently filled gaps with training data, missed an out-of-band reply, wrote placeholders instead of progressive logs, or skipped a required section. NOT for friction the task environment caused; that belongs in Action Items.

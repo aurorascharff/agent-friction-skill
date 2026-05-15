@@ -66,7 +66,7 @@ In rough priority order:
 
 Some harnesses let the user interject mid-run (chat-thread replies, queued Slack messages). When that happens, the exchange is logged verbatim at the point in time it arrived, using blockquotes:
 
-```
+```markdown
 > **User:** Did you check the response headers?
 > **Agent:** Yes — they're below.
 ```
@@ -75,6 +75,6 @@ These mark places where the agent's path changed in response to a user nudge.
 
 ## Skill Feedback
 
-The optional `## Skill Feedback` section is added by the user *after* reviewing the log. It captures places where the **skill itself** caused the agent to behave incorrectly — missing instructions, ambiguous rules, wrong default behaviors. Items there are inputs for improving this skill, not for the framework being tested.
+`## Skill Feedback` is an optional section that does **not** appear in fresh logs — the agent is instructed not to include an empty placeholder. It gets appended only if the user, after reviewing the log, points out a specific place where the **skill itself** caused the agent to behave incorrectly: missing instructions, ambiguous rules, wrong default behaviors. The entries (🔁-prefixed) are inputs for improving this skill, not for the framework being tested.
 
 If a problem was caused by the task environment (a misleading error message, a missing doc), it belongs in **Action Items**, not Skill Feedback.
