@@ -42,24 +42,24 @@ export function PasteForm() {
         placeholder="# Friction Log: ..."
         spellCheck={false}
         autoFocus
-        className="w-full min-h-[220px] sm:min-h-[280px] rounded-lg border border-border bg-card text-card-foreground px-4 py-3 font-mono text-xs leading-relaxed placeholder:text-muted-foreground/40 resize-y focus:outline-none focus:border-foreground/40 transition-colors"
+        className="w-full min-h-[220px] sm:min-h-[280px] bg-transparent text-foreground px-4 py-3 font-mono text-xs leading-relaxed placeholder:text-muted-foreground/40 resize-y focus:outline-none transition-colors"
       />
 
-      <div className="mt-4 flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between gap-2 border-t border-border bg-black/30 px-3 py-2">
         <button
           onClick={() => setText(EXAMPLE_LOG)}
           disabled={isPending}
-          className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-accent transition-colors disabled:opacity-40"
+          className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors disabled:opacity-40"
           title="Fill the textarea with a sample friction log"
         >
           <Sparkles className="w-3.5 h-3.5" />
           Fill with example
         </button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           {text && (
             <button
               onClick={() => setText("")}
-              className="rounded-md px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              className="rounded-md px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
             >
               Clear
             </button>
@@ -67,10 +67,10 @@ export function PasteForm() {
           <button
             onClick={handleSubmit}
             disabled={!text.trim() || isPending}
-            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-accent px-3 py-1.5 text-xs font-medium hover:bg-accent/70 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="group inline-flex items-center gap-1.5 rounded-md bg-foreground text-background px-3 py-1.5 text-xs font-medium hover:bg-foreground/90 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_2px_8px_-2px_rgba(255,255,255,0.15)]"
           >
             {isPending ? "Opening…" : "View"}
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
       </div>

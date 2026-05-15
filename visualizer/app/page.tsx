@@ -42,13 +42,22 @@ export default function HomePage() {
             </a>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-center text-4xl sm:text-5xl font-semibold tracking-tight mb-3 [text-wrap:balance] bg-gradient-to-b from-foreground to-foreground/60 bg-clip-text text-transparent">
-            Friction Log Viewer
+          {/* Headline — big tight sans + a monospace `.md` kicker that
+              leans into the file-viewer identity. */}
+          <h1 className="text-center text-5xl sm:text-6xl font-semibold tracking-tighter mb-3 [text-wrap:balance]">
+            <span className="bg-gradient-to-b from-foreground via-foreground/90 to-foreground/40 bg-clip-text text-transparent">
+              Friction Log
+            </span>
+            <span
+              aria-hidden
+              className="inline-block ml-1 -translate-y-1.5 sm:-translate-y-2 font-mono text-2xl sm:text-3xl text-foreground/30"
+            >
+              .md
+            </span>
           </h1>
           <p className="text-center text-base text-muted-foreground mb-10 [text-wrap:balance] max-w-md mx-auto">
-            Paste a log produced by an agent and read it cleanly. Nothing
-            leaves your browser.
+            Paste a log an agent produced and read it cleanly. Nothing leaves
+            your browser.
           </p>
 
           {/* Editor-style card: macOS traffic lights + filename, then the
