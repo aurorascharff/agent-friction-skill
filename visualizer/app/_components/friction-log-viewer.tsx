@@ -211,7 +211,7 @@ function RunInfoGrid({ entries }: { entries: LogEntry[] }) {
   const other: LogEntry[] = [];
 
   for (const entry of entries) {
-    const match = entry.text.match(/^(.+?):\s+(.+)$/);
+    const match = entry.text.match(/^\*\*([^*]+?):?\*\*\s*(.+)$/);
     if (match) {
       kvPairs.push({ key: match[1]!, value: match[2]! });
     } else if (entry.text.trim()) {
