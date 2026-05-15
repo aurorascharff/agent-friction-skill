@@ -24,7 +24,7 @@ A skill for **AI agents** to document agentic developer experience friction as t
 
 ## Viewing logs
 
-Paste a finished friction log into **[agent-friction-skill.vercel.app](https://agent-friction-skill.vercel.app/)** to render it in a collapsible, severity-coded layout. Nothing leaves your browser — encoded logs travel as a URL fragment for shareable links. The viewer's source lives under [`visualizer/`](visualizer/).
+Paste a finished friction log into **[agent-friction-skill.vercel.app](https://agent-friction-skill.vercel.app/)** to render it in a collapsible, severity-coded layout. Nothing leaves your browser — encoded logs travel as a URL fragment for shareable links. The viewer's source lives under [`agent-friction-skill-visualizer/`](https://github.com/aurorascharff/agent-friction-skill-visualizer).
 
 ## References
 
