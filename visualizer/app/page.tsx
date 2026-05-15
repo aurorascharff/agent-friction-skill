@@ -55,20 +55,6 @@ export default function HomePage() {
             </div>
             <PasteForm />
           </div>
-
-          {/* Credit + privacy line below the card */}
-          <p className="text-center text-[11px] text-muted-foreground/70 mt-6">
-            Created with the{" "}
-            <a
-              href="https://github.com/aurorascharff/agent-friction-skill"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground/80 hover:text-foreground underline decoration-border underline-offset-2 hover:decoration-foreground/40 transition-colors"
-            >
-              agent-friction skill
-            </a>
-            . Logs encode into the URL hash — never sent to a server.
-          </p>
         </div>
       </div>
     </main>
