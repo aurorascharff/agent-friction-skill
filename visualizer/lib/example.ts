@@ -11,7 +11,7 @@ export const EXAMPLE_LOG = `# Friction Log: ViewTransition Shared Element — Pr
 
 ## Prompt
 
-> Build a product grid and detail page. Clicking a thumbnail should morph into the detail image using React's <ViewTransition> component. Going back should reverse it.
+> Build a Next.js product grid and detail page. Clicking a thumbnail should morph into the detail image using React's <ViewTransition> component. Going back should reverse it.
 
 ---
 
