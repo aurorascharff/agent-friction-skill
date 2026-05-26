@@ -78,6 +78,14 @@ Greens (🟢) are dropped at collection time — only 🟡/🔴 are eligible for
 
 Either way, the skill defers entirely if the user explicitly invokes the active `friction-log` skill in the same run.
 
+### Asking for friction mid-session
+
+At any point during or after a task, you can ask the agent:
+
+> "Give me your friction report" / "What friction did you hit?" / "Submit your friction"
+
+Even if the agent forgot to buffer observations (a known failure mode in long sessions), it will reconstruct what it can from the conversation, POST a draft, and give you the review link. The report is always human-gated — nothing is stored until you click Submit.
+
 ## References
 
 - `SKILL.md` — active `friction-log` skill instructions
