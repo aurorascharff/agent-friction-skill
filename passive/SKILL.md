@@ -17,7 +17,7 @@ If the user is **explicitly asking for a friction log** ("write a friction log",
 4. **Persistent buffer outside the user's repo.** "Memory" between tool calls is unreliable — re-deciding to capture each turn is the #1 reason this skill silently fails. Write each 🟡/🔴 observation as a single line to a session scratch file the moment you hit it. Use whatever persistent scratch your harness offers; recommended locations in order:
    - The harness's structured memory tool (e.g. `/memories/session/friction.jsonl`) if available
    - Otherwise, `~/.cache/friction-observe/<task-id>.jsonl` (NOT inside the user's repo)
-   Each line is one JSON-encoded friction point. Append, don't rewrite. This is your only durable buffer.
+     Each line is one JSON-encoded friction point. Append, don't rewrite. This is your only durable buffer.
 5. **Capture at the moment of friction, not in retrospect.** The instant a build fails, a doc is missing, an error overlay misleads you, or you fall back to training data — append a line to the buffer before moving on to the fix. End-of-task reconstruction always loses entries.
 6. **Submission is human-gated.** At end-of-task you POST a draft to `https://agent-friction-skill.vercel.app/api/draft`, then open the returned `review_url` in the agent browser. **Stop there.** Do not submit on the human's behalf — the visualizer's Submit button is the consent surface.
 7. **No PII, no code.** The payload schema is intentionally narrow. You may include:
