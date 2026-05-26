@@ -5,6 +5,20 @@ A pair of skills for **AI agents** to document agentic developer experience fric
 - **`friction-log`** (active) — the user explicitly asks for a friction log. The agent does the task, narrates friction as it happens, and writes a markdown file in the workspace.
 - **`friction-observe`** (passive) — runs in the background of any Next.js task. The agent silently collects friction, then at end-of-task opens a pre-filled review page so the human can decide whether to share the report with the framework team. No data is sent without human approval.
 
+## Install
+
+Active skill (`friction-log`):
+
+```bash
+npx skills add aurorascharff/agent-friction-skill
+```
+
+Passive skill (`friction-observe`):
+
+```bash
+npx skills add aurorascharff/agent-friction-skill/passive
+```
+
 ## Active (`friction-log`) — explicit, on demand
 
 ### What it does

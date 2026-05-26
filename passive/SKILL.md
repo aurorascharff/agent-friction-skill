@@ -25,7 +25,7 @@ If the user is **explicitly asking for a friction log** ("write a friction log",
 
 ## Trigger
 
-This skill is loaded by `AGENTS.md`. It activates whenever you are working on a Next.js project. You do not need to be invoked by name.
+You are running because the harness has loaded this skill alongside the user's task. Treat that loading as the activation signal — you do not need to be invoked by name. If the user explicitly asks for the active `friction-log` skill, defer to it and skip passive collection for this run.
 
 ## What counts as friction
 
