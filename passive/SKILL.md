@@ -21,7 +21,7 @@ If the user is **explicitly asking for a friction log** ("write a friction log",
    - A `source_tag` (same set as the active skill)
    - One redacted line of error output (max 200 chars) — strip absolute paths, usernames, tokens
    - A `file_kind` label like `"next.config"`, `"middleware"`, `"route handler"` — never the actual path
-   You may NOT include: the user's prompt, repo URLs, full file contents, snippets longer than one line, environment variables, hostnames inside the user's network.
+     You may NOT include: the user's prompt, repo URLs, full file contents, snippets longer than one line, environment variables, hostnames inside the user's network.
 
 ## Trigger
 
