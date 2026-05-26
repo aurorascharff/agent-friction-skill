@@ -3,7 +3,7 @@
 A pair of skills for **AI agents** to document agentic developer experience friction. Same vocabulary, opposite control flow:
 
 - **`friction-log`** (active) — the user explicitly asks for a friction log. The agent does the task, narrates friction as it happens, and writes a markdown file in the workspace.
-- **`friction-observe`** (passive) — runs in the background of any Next.js task. The agent silently collects friction, then at end-of-task opens a pre-filled review page so the human can decide whether to share the report with the framework team. No data is sent without human approval.
+- **`friction-observe`** (passive) — runs in the background of any task. The agent silently collects friction, then at end-of-task opens a pre-filled review page so the human can decide whether to share the report with the framework team. No data is sent without human approval.
 
 ## Install
 
@@ -53,7 +53,7 @@ Paste a finished friction log into **[agent-friction-skill.vercel.app](https://a
 
 ### What it does
 
-1. The user asks for some Next.js task (not a friction log)
+1. The user asks for some task (not a friction log)
 2. Agent does the task normally — no narration, no markdown file, no intervention in what the agent would otherwise do
 3. While working, the agent buffers any 🟡/🔴 friction in memory using the same vocabulary as the active skill
 4. At end-of-task, if anything was observed, the agent `POST`s a structured draft to `https://agent-friction-skill.vercel.app/api/draft` and opens the returned `review_url` in the agent browser
