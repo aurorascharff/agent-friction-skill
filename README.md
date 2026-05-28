@@ -3,7 +3,7 @@
 A pair of skills for **AI agents** to document agentic developer experience friction. Same vocabulary, opposite control flow:
 
 - **`friction-log`** (active) — the user explicitly asks for a friction log. The agent does the task, narrates friction as it happens, and writes a markdown file in the workspace.
-- **`friction-observe`** (passive) — runs in the background of any task. The agent silently collects friction, then at end-of-task opens a pre-filled review page so the human can decide whether to share the report with the framework team. No data is sent without human approval.
+- **`friction-report`** (passive) — invoked at the end of a dev session. Scans the conversation for friction, drafts a report for human review. No buffer, no per-turn tracking — your conversation history is the source of truth. Silent exit if the session was clean.
 
 ## Install
 
@@ -13,7 +13,7 @@ Active skill (`friction-log`):
 npx skills add aurorascharff/agent-friction-skill
 ```
 
-Passive skill (`friction-observe`):
+Passive skill (`friction-report`):
 
 ```bash
 npx skills add aurorascharff/agent-friction-skill/passive
@@ -49,47 +49,29 @@ npx skills add aurorascharff/agent-friction-skill/passive
 
 Paste a finished friction log into **[agent-friction-skill.vercel.app](https://agent-friction-skill.vercel.app/)** to render it in a collapsible, severity-coded layout. Nothing leaves your browser — encoded logs travel as a URL fragment for shareable links. The viewer's source lives under [`agent-friction-skill-visualizer/`](https://github.com/aurorascharff/agent-friction-skill-visualizer).
 
-## Passive (`friction-observe`) — always-on, silent
+## Passive (`friction-report`) — end-of-session
 
 ### What it does
 
-1. The user asks for some task (not a friction log)
-2. Agent does the task normally — no narration, no markdown file, no intervention in what the agent would otherwise do
-3. While working, the agent buffers any 🟡/🔴 friction in memory using the same vocabulary as the active skill
-4. At end-of-task, if anything was observed, the agent `POST`s a structured draft to `https://agent-friction-skill.vercel.app/api/draft` and opens the returned `review_url` in the agent browser
-5. The human reviews the report (rendered with the same viewer as a hand-written log) and clicks **Submit** to send it to the framework team — or just closes the tab to discard it
-6. On submit, the report is stored as markdown at `reports/YYYY-MM/<id>.md` in private Blob storage
+1. At the end of a dev session, scans the conversation for friction: build failures, doc gaps, SDK surprises, misleading errors, training-data fallbacks
+2. If anything was found, POSTs a structured draft to `https://agent-friction-skill.vercel.app/api/draft` and opens the review URL
+3. The human reviews and clicks Submit — or closes the tab to discard
+4. If the session was clean, exits silently
 
-### What the agent submits (and what it does NOT)
+No buffer, no initialization, no per-turn tracking. The conversation history is the source of truth.
 
-The payload is intentionally narrow — schema enforced server-side, unknown fields rejected:
+### When it runs
 
-- **Allowed:** framework + version, severity (🟡/🔴), short title, expected/actual/resolution prose, source tag, optional `file_kind` label (`"route handler"`, `"next.config"`, etc.), optional one-line redacted snippet (max 200 chars), action items.
-- **Forbidden:** the user's prompt verbatim, absolute paths, hostnames, full file contents, environment variables, tokens, snippets longer than one line.
+- When the user signals they're done: "done", "thanks", "that's it"
+- When the user explicitly asks: "report your friction", "what friction did you hit?"
+- When the harness invokes the skill by name
 
-Greens (🟢) are dropped at collection time — only 🟡/🔴 are eligible for submission. If nothing was observed, the agent submits nothing.
-
-### Trigger
-
-`friction-observe` runs whenever an agent has it loaded as a skill in the current session. How that happens depends on the harness:
-
-- Some agentic harnesses auto-discover any `SKILL.md` they find in a project — drop the repo in and you're done.
-- Others require an explicit `AGENTS.md` entry pointing at `passive/SKILL.md`, or a user invocation.
-
-Either way, the skill defers entirely if the user explicitly invokes the active `friction-log` skill in the same run.
-
-### Asking for friction mid-session
-
-At any point during or after a task, you can ask the agent:
-
-> "Give me your friction report" / "What friction did you hit?" / "Submit your friction"
-
-Even if the agent forgot to buffer observations (a known failure mode in long sessions), it will reconstruct what it can from the conversation, POST a draft, and give you the review link. The report is always human-gated — nothing is stored until you click Submit.
+Defers to `friction-log` if that skill was explicitly invoked during the session.
 
 ## References
 
 - `SKILL.md` — active `friction-log` skill instructions
-- `passive/SKILL.md` — passive `friction-observe` skill instructions
+- `passive/SKILL.md` — passive `friction-report` skill instructions
 - `references/reading-the-log.md` — how a **human** should read the output (severity, action-item priority, source tags)
 - `references/agent-behavior.md` — how the **agent** should behave while the active skill is running
 - `references/template.md` — friction log output template
