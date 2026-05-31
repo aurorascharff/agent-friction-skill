@@ -37,16 +37,18 @@ Matches the same schema the visualizer validates. All top-level fields:
 - **`friction_points[]`** — each one has:
   - `severity`: `red` (blocked/broken) or `yellow` (extra steps/guesswork). Do NOT include greens.
   - `title`: one-line description, ≤200 chars.
-  - `expected`: what you thought would happen. Optional.
-  - `actual`: what actually happened. Optional.
-  - `resolution`: how it was fixed, or "unresolved". Optional.
+  - `expected`: what you thought would happen. Strongly recommended, not optional in practice — without it, the report can't be reproduced.
+  - `actual`: what actually happened. Strongly recommended, include the full causal chain when one symptom was caused by a separate upstream mistake (e.g. "page omitted Suspense because feature pre-wrapped its own, contradicting the architecture skill").
+  - `resolution`: how it was fixed, or "unresolved". Strongly recommended.
   - `source_tag`: one of `agents.md`, `docs`, `url`, `web search`, `training data`, `error output`, `sandbox`, `skill`.
   - `file_kind`: what kind of file (e.g. `route handler`, `next.config`). Never an absolute path. Optional.
   - `redacted_snippet`: one redacted line of error output, ≤200 chars. Optional.
 - **`action_items[]`** — each one has:
   - `bucket`: `docs`, `framework`, or `research`.
   - `title`: what should be fixed or investigated.
-  - `context`: the specific friction that led to this item.
+  - `context`: the specific friction that led to this item, including upstream causes when relevant.
+
+A friction report with only a `title` and a one-line `action_items[].title` is a placeholder, not a report. Fill in `expected`, `actual`, and `resolution` for every point. If a session had multiple frictions (e.g. one wrong stack trace + one architecture violation that caused it), file them as separate points and reference each other in `actual`.
 
 **Sanitize.** Strip anything identifying the user, their project, or containing secrets/PII. Can't describe it without leaking? Drop it.
 
