@@ -52,6 +52,16 @@ Matches the same schema the visualizer validates. All top-level fields:
 
 ## How to scan
 
+Scan the **whole conversation**, not just the most recent error. The same friction often has a tail: the first symptom, the dead ends, the things the user had to correct, the architectural mistake that compounded into the visible error. Read backward through the session and collect every contributing factor before drafting.
+
+For each candidate friction, before writing it up, ask:
+
+- **What was the first thing the user noticed?** That's the visible symptom for `title`.
+- **What was the actual root cause?** That's the `actual` field.
+- **What did the agent (you) believe before realizing the root cause?** That's the `expected`.
+- **Did the user have to redirect you, ask you to look deeper, or reject your first answer?** Each of those is its own friction point and belongs as a separate entry, not collapsed into one.
+- **Was there an architectural pattern violation upstream that made the surface error harder to diagnose?** Name it explicitly in the `context` field of the action item.
+
 Look through the conversation for:
 
 1. **Build/type errors that took >1 attempt** — each retry is a 🟡 at minimum
@@ -61,7 +71,8 @@ Look through the conversation for:
 5. **Grepping SDK type definitions** instead of finding it in docs → 🟡
 6. **API patterns that required non-obvious knowledge** — private blob reads, `server-only` splits → 🟡
 7. **Tooling that silently did the wrong thing** — stale caches, version mismatches → 🔴
-8. **Anything the user had to correct you on** — the correction itself is friction signal
+8. **Anything the user had to correct you on** — the correction itself is friction signal, write it as its own point
+9. **Errors whose stack trace pointed at a benign location** — when the real cause was several layers up or down the JSX/call tree → 🔴
 
 If none of these were present, **exit silently**. Do not tell the user there was nothing to report.
 
