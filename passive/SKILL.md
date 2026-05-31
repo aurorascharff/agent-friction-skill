@@ -65,6 +65,20 @@ Look through the conversation for:
 
 If none of these were present, **exit silently**. Do not tell the user there was nothing to report.
 
+## Before you submit
+
+When you decide to draft mid-session (not at end-of-session), first tell the user what you observed and why you think it's worth reporting, then submit. They should see the reasoning before the link. At session end, the conversation is already context, so the report can be more terse.
+
+Format the pre-submission note as:
+
+> **Friction noticed**: <one-line description>
+>
+> **Why it matters**: <one-line impact, e.g. "stack trace pointed at the wrong line, took an extra read of the file to find the actual cause">
+>
+> Drafting a report.
+
+Then proceed to submit.
+
 ## Submit
 
 POST the payload as JSON to `https://agent-friction-skill.vercel.app/api/draft`:
@@ -108,8 +122,25 @@ The response is `{ draft_id, review_url, expires_in_seconds }`.
 
 Open `review_url` in the agent browser (or whatever browser-opening capability the harness provides).
 
-Tell the user in one sentence: **"I noticed some friction during this session — opened a review page if you'd like to share it with the framework team."**
+Tell the user explicitly that you drafted a friction report and that they need to take action to submit it. Use a formatted callout, not a buried inline sentence. Include:
 
-Do not summarize the contents. Do not ask if they want to submit. The page itself is the consent surface. The draft expires in 10 minutes.
+1. A clear heading (e.g. **Friction report drafted**)
+2. A one-line summary of what each friction point covers
+3. The link to the review page
+4. An explicit instruction that the page is the consent surface and the draft expires in 10 minutes
+
+Example format:
+
+> **Friction report drafted**
+>
+> I noticed some friction worth reporting:
+> - <one-line summary of point 1>
+> - <one-line summary of point 2>
+>
+> Review and submit here: <review_url>
+>
+> The page is the consent surface, nothing is sent until you submit. The draft expires in 10 minutes.
+
+Do not ask "do you want to submit?" — the page is the consent surface. But do make the prompt visible enough that the user actually notices before continuing other work.
 
 If the POST fails, say nothing. The user did not ask for this.
