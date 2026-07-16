@@ -4,10 +4,10 @@
 > `friction-log` has moved to the `/skills` collection:
 > [`aurorascharff/skills/skills/friction-log`](https://github.com/aurorascharff/skills/tree/main/skills/friction-log).
 >
-> Install the maintained collection with:
+> Install the maintained skill with:
 >
 > ```bash
-> npx skills add aurorascharff/skills
+> npx skills add aurorascharff/skills/skills/friction-log
 > ```
 >
 > This repository is kept as a cleanup pointer for existing links. The sections below are legacy documentation for the old install paths. The passive `friction-report` skill is not moving because it is not reliable enough to keep in the collection.
