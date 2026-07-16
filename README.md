@@ -1,5 +1,17 @@
 # friction-log SKILL
 
+> [!IMPORTANT]
+> `friction-log` has moved to the `/skills` collection:
+> [`aurorascharff/nextjs-app-architecture-skill/skills/friction-log`](https://github.com/aurorascharff/nextjs-app-architecture-skill/tree/main/skills/friction-log).
+>
+> Install the maintained collection with:
+>
+> ```bash
+> npx skills add aurorascharff/nextjs-app-architecture-skill
+> ```
+>
+> This repository is kept as a cleanup pointer for existing links. The sections below are legacy documentation for the old install paths. The passive `friction-report` skill is not moving because it is not reliable enough to keep in the collection.
+
 A pair of skills for **AI agents** to document agentic developer experience friction. Same vocabulary, opposite control flow:
 
 - **`friction-log`** (active) — the user explicitly asks for a friction log. The agent does the task, narrates friction as it happens, and writes a markdown file in the workspace.
@@ -76,4 +88,3 @@ Defers to `friction-log` if that skill was explicitly invoked during the session
 - `references/agent-behavior.md` — how the **agent** should behave while the active skill is running
 - `references/template.md` — friction log output template
 - `references/example.md` — real friction log from an actual agent run ([source repo](https://github.com/aurorascharff/fl-view-transition-morph))
-
