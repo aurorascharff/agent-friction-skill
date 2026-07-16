@@ -2,12 +2,12 @@
 
 > [!IMPORTANT]
 > `friction-log` has moved to the `/skills` collection:
-> [`aurorascharff/nextjs-app-architecture-skill/skills/friction-log`](https://github.com/aurorascharff/nextjs-app-architecture-skill/tree/main/skills/friction-log).
+> [`aurorascharff/skills/skills/friction-log`](https://github.com/aurorascharff/skills/tree/main/skills/friction-log).
 >
 > Install the maintained collection with:
 >
 > ```bash
-> npx skills add aurorascharff/nextjs-app-architecture-skill
+> npx skills add aurorascharff/skills
 > ```
 >
 > This repository is kept as a cleanup pointer for existing links. The sections below are legacy documentation for the old install paths. The passive `friction-report` skill is not moving because it is not reliable enough to keep in the collection.
