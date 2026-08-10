@@ -1,17 +1,5 @@
 # friction-log SKILL
 
-> [!IMPORTANT]
-> `friction-log` has moved to the `/skills` collection:
-> [`aurorascharff/skills/skills/friction-log`](https://github.com/aurorascharff/skills/tree/main/skills/friction-log).
->
-> Install the maintained skill with:
->
-> ```bash
-> npx skills add aurorascharff/skills/skills/friction-log
-> ```
->
-> This repository is kept as a cleanup pointer for existing links. The sections below are legacy documentation for the old install paths. The passive `friction-report` skill is not moving because it is not reliable enough to keep in the collection.
-
 A pair of skills for **AI agents** to document agentic developer experience friction. Same vocabulary, opposite control flow:
 
 - **`friction-log`** (active) — the user explicitly asks for a friction log. The agent does the task, narrates friction as it happens, and writes a markdown file in the workspace.
