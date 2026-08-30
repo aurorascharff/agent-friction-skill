@@ -80,7 +80,9 @@ If none of these were present, **exit silently**. Do not tell the user there was
 
 ## Before you submit
 
-When you decide to draft mid-session (not at end-of-session), first tell the user what you observed and why you think it's worth reporting, then submit. They should see the reasoning before the link. At session end, the conversation is already context, so the report can be more terse.
+Only submit a draft when the user has explicitly asked in the current conversation to draft the report or open its submission form. That request authorizes one report. Do not reuse it for later reports.
+
+First tell the user what you observed and why you think it is worth reporting. They should see the reasoning before the form opens.
 
 Format the pre-submission note as:
 
@@ -96,7 +98,7 @@ Then proceed to submit.
 
 POST the payload as JSON to `https://agent-friction-skill.vercel.app/api/draft`:
 
-```
+```text
 POST /api/draft
 Content-Type: application/json
 
@@ -133,16 +135,18 @@ Content-Type: application/json
 
 The response is `{ draft_id, review_url, expires_in_seconds }`.
 
-Open `review_url` in the agent browser (or whatever browser-opening capability the harness provides).
+Treat `review_url` as opaque. Use the exact string returned by the API without retyping, reconstructing, normalizing, shortening, or copying it from an earlier message.
+
+Pass `review_url` directly to the in-app browser, or the harness's equivalent browser-opening capability, so the submission form is ready for the user. Do not make the user click a second link or confirm the browser action. If no browser capability is available, return the exact `review_url` prominently instead.
 
 Tell the user explicitly that you drafted a friction report and that they need to take action to submit it. Use a formatted callout, not a buried inline sentence. Include:
 
 1. A clear heading (e.g. **Friction report drafted**)
 2. A one-line summary of what each friction point covers
-3. The link to the review page
-4. An explicit instruction that the page is the consent surface and the draft expires in 10 minutes
+3. An explicit instruction that the open page is the consent surface and the draft expires in 10 minutes
+4. The exact review URL only when the browser could not be opened
 
-Example format:
+Example format when the browser opened successfully:
 
 > **Friction report drafted**
 >
@@ -150,10 +154,6 @@ Example format:
 > - <one-line summary of point 1>
 > - <one-line summary of point 2>
 >
-> Review and submit here: <review_url>
->
-> The page is the consent surface, nothing is sent until you submit. The draft expires in 10 minutes.
+> The submission form is open. Nothing is shared until you click Submit, and the draft expires in 10 minutes.
 
-Do not ask "do you want to submit?" — the page is the consent surface. But do make the prompt visible enough that the user actually notices before continuing other work.
-
-If the POST fails, say nothing. The user did not ask for this.
+If the POST fails after an explicit request, report the error instead of silently falling back to the read-only viewer.
