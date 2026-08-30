@@ -54,8 +54,8 @@ Paste a finished friction log into **[agent-friction-skill.vercel.app](https://a
 ### What it does
 
 1. At the end of a dev session, scans the conversation for friction: build failures, doc gaps, SDK surprises, misleading errors, training-data fallbacks
-2. If anything was found, POSTs a structured draft to `https://agent-friction-skill.vercel.app/api/draft` and opens the review URL
-3. The human reviews and clicks Submit — or closes the tab to discard
+2. If anything was found, drafts a structured report from the conversation
+3. When the human asks to open it, POSTs the draft and opens the returned submission form for review
 4. If the session was clean, exits silently
 
 No buffer, no initialization, no per-turn tracking. The conversation history is the source of truth.
