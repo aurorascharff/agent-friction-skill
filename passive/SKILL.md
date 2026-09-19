@@ -1,25 +1,43 @@
 ---
 name: friction-report
 description: >
-  Invoke at the end of every dev session, including when the user
-  signals they're wrapping up. Scans the conversation for framework
-  friction and drafts a report if any was found. Silent exit otherwise.
-  Don't defer to later.
+  Use automatically immediately before the final response of every
+  software-development task, after implementation and tool calls are complete.
+  Review the full session for framework or tooling friction that caused a
+  meaningful detour or is likely to recur. Open a review draft when something
+  qualifies; exit silently otherwise. Also use when the user asks about
+  friction. Do not defer until a later turn.
 ---
 
 # friction-report
 
-End-of-session friction reporter. Scans the conversation you just had for build failures, doc gaps, SDK surprises, misleading errors, and training-data fallbacks. If anything worth reporting was found, drafts a structured report for human review. If the session was clean, exits silently.
+Final-response friction reporter. Scans the completed task for actionable framework and tooling friction. If anything worth reporting was found, it opens a structured draft for human review. If the task was clean, it exits silently.
 
 No buffer, no per-turn tracking, no initialization step. Your conversation history is the source of truth.
 
 ## When to run
 
-- At the end of a dev session — when the user says "done", "thanks", "that's it", or when the task is clearly complete
+- Immediately before sending a final response for a software-development task, after all implementation work and tool calls are complete
+- When the user says "done", "thanks", "that's it", or otherwise signals that the development task is ending
 - When the user explicitly asks: "report your friction", "what friction did you hit?", "give me the friction report"
 - When the harness invokes this skill by name
 
+Do not run during an intermediate update or while more task work remains. Run once for the current user request. If the user resumes the task after a final response, review only the new work at the next final response.
+
 If the user explicitly invoked the `friction-log` skill during this session, **do not run** — that skill already produced a detailed log.
+
+## What qualifies
+
+Report observed friction that caused a meaningful detour or is likely to recur for another developer or agent, including:
+
+- A build, development server, runtime, or tool crash, hang, out-of-memory failure, or unexpected slowdown
+- Incorrect or inconsistent framework, SDK, CLI, codemod, or skill behavior
+- Missing, unclear, or conflicting documentation
+- A misleading error, missing diagnostic, or failure that points at the wrong source
+- Repeated failed approaches or a non-obvious workaround required to complete an ordinary task
+- A user correction that reveals one of the product, documentation, or tooling problems above
+
+Do not report routine first-pass debugging, mistakes caused only by the agent, hypothetical concerns, or failures caused by unverified local changes. A task does not need to be blocked for its friction to qualify.
 
 ## Payload
 
@@ -73,14 +91,16 @@ Look through the conversation for:
 5. **Grepping SDK type definitions** instead of finding it in docs → 🟡
 6. **API patterns that required non-obvious knowledge** — private blob reads, `server-only` splits → 🟡
 7. **Tooling that silently did the wrong thing** — stale caches, version mismatches → 🔴
-8. **Anything the user had to correct you on** — the correction itself is friction signal, write it as its own point
+8. **A user correction that exposed a product or documentation gap** — report the underlying gap, not the conversation mistake
 9. **Errors whose stack trace pointed at a benign location** — when the real cause was several layers up or down the JSX/call tree → 🔴
 
 If none of these were present, **exit silently**. Do not tell the user there was nothing to report.
 
-## Before you submit
+## Before you create the draft
 
-Only submit a draft when the user has explicitly asked in the current conversation to draft the report or open its submission form. That request authorizes one report. Do not reuse it for later reports.
+Automatic invocation authorizes creating one temporary review draft for the completed task. Creating and opening the draft does not submit the report. Nothing is shared as feedback until the user reviews the form and clicks Submit.
+
+Create no draft when nothing qualifies. Combine related friction in one report and keep unrelated friction as separate `friction_points`. Never open the same task's draft twice.
 
 First tell the user what you observed and why you think it is worth reporting. They should see the reasoning before the form opens.
 
@@ -92,7 +112,7 @@ Format the pre-submission note as:
 >
 > Drafting a report.
 
-Then proceed to submit.
+Then create and open the draft without asking another confirmation question.
 
 ## Submit
 
@@ -156,4 +176,4 @@ Example format when the browser opened successfully:
 >
 > The submission form is open. Nothing is shared until you click Submit, and the draft expires in 10 minutes.
 
-If the POST fails after an explicit request, report the error instead of silently falling back to the read-only viewer.
+If the POST or browser open fails, do not investigate the host environment or retry repeatedly. Report the failure briefly. If the API returned a `review_url`, provide that exact URL so the user can open it manually.
