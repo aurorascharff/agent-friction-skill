@@ -3,7 +3,7 @@
 A pair of skills for **AI agents** to document agentic developer experience friction. Same vocabulary, opposite control flow:
 
 - **`friction-log`** (active) — the user explicitly asks for a friction log. The agent does the task, narrates friction as it happens, and writes a markdown file in the workspace.
-- **`friction-report`** (passive) — invoked at the end of a dev session. Scans the conversation for friction, drafts a report for human review. No buffer, no per-turn tracking — your conversation history is the source of truth. Silent exit if the session was clean.
+- **`friction-report`** (passive) — invoked immediately before the final response of a development task. Scans the conversation for recurring framework or tooling friction and opens a draft for human review. No buffer or per-turn tracking — the conversation is the source of truth. Silent exit if the task was clean.
 
 ## Install
 
@@ -49,19 +49,20 @@ npx skills add aurorascharff/agent-friction-skill/passive
 
 Paste a finished friction log into **[agent-friction-skill.vercel.app](https://agent-friction-skill.vercel.app/)** to render it in a collapsible, severity-coded layout. Nothing leaves your browser — encoded logs travel as a URL fragment for shareable links. The viewer's source lives under [`agent-friction-skill-visualizer/`](https://github.com/aurorascharff/agent-friction-skill-visualizer).
 
-## Passive (`friction-report`) — end-of-session
+## Passive (`friction-report`) — final-response review
 
 ### What it does
 
-1. At the end of a dev session, scans the conversation for friction: build failures, doc gaps, SDK surprises, misleading errors, training-data fallbacks
-2. If anything was found, drafts a structured report from the conversation
-3. When the human asks to open it, POSTs the draft and opens the returned submission form for review
-4. If the session was clean, exits silently
+1. Immediately before the final response, scans the completed task for meaningful detours and recurring framework or tooling problems
+2. Ignores routine debugging, hypothetical concerns, and mistakes caused only by the agent
+3. If something qualifies, creates one temporary draft and opens the submission form for review
+4. Nothing is submitted until the user clicks Submit; if the task was clean, the skill exits silently
 
 No buffer, no initialization, no per-turn tracking. The conversation history is the source of truth.
 
 ### When it runs
 
+- Immediately before the final response, after implementation and tool calls are complete
 - When the user signals they're done: "done", "thanks", "that's it"
 - When the user explicitly asks: "report your friction", "what friction did you hit?"
 - When the harness invokes the skill by name
