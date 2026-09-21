@@ -4,14 +4,15 @@ description: >
   Use automatically immediately before the final response of every
   software-development task, after implementation and tool calls are complete.
   Review the full session for framework or tooling friction that caused a
-  meaningful detour or is likely to recur. Open a review draft when something
-  qualifies; exit silently otherwise. Also use when the user asks about
+  meaningful detour or is likely to recur. Offer to create a review draft when
+  something qualifies, and send it only after the user explicitly approves the
+  external POST. Exit silently otherwise. Also use when the user asks about
   friction. Do not defer until a later turn.
 ---
 
 # friction-report
 
-Final-response friction reporter. Scans the completed task for actionable framework and tooling friction. If anything worth reporting was found, it opens a structured draft for human review. If the task was clean, it exits silently.
+Final-response friction reporter. Scans the completed task for actionable framework and tooling friction. If anything worth reporting was found, it offers to create a structured draft for human review. It sends the draft only after the user explicitly approves the external POST. If the task was clean, it exits silently.
 
 No buffer, no per-turn tracking, no initialization step. Your conversation history is the source of truth.
 
@@ -98,11 +99,11 @@ If none of these were present, **exit silently**. Do not tell the user there was
 
 ## Before you create the draft
 
-Automatic invocation authorizes creating one temporary review draft for the completed task. Creating and opening the draft does not submit the report. Nothing is shared as feedback until the user reviews the form and clicks Submit.
+Automatic invocation authorizes scanning the completed task, but it does not authorize sending data to an external service. Creating a temporary review draft sends a sanitized payload to `https://agent-friction-skill.vercel.app/api/draft`, even though the report is not submitted as feedback until the user reviews the form and clicks Submit.
 
 Create no draft when nothing qualifies. Combine related friction in one report and keep unrelated friction as separate `friction_points`. Never open the same task's draft twice.
 
-First tell the user what you observed and why you think it is worth reporting. They should see the reasoning before the form opens.
+First tell the user what you observed, why you think it is worth reporting, where the draft will be sent, and which categories of data it contains. Then ask for explicit approval to send that specific draft.
 
 Format the pre-submission note as:
 
@@ -110,11 +111,15 @@ Format the pre-submission note as:
 >
 > **Why it matters**: <one-line impact, e.g. "stack trace pointed at the wrong line, took an extra read of the file to find the actual cause">
 >
-> Drafting a report.
+> **Draft contents**: Sanitized framework and version details, agent or harness details when available, friction points, and suggested action items. No source code, logs, file paths, URLs, secrets, personal information, or project-specific data.
+>
+> Creating the review draft sends this information to `https://agent-friction-skill.vercel.app/api/draft`. Do you approve sending this sanitized draft to create a temporary review form?
 
-Then create and open the draft without asking another confirmation question.
+Do not create the draft unless the user explicitly approves in the current conversation. Approval applies to exactly one POST containing the draft described in the approval request. If the user declines or does not answer, complete the task without creating a draft.
 
 ## Submit
+
+After explicit approval, POST the approved payload once. Do not add new data after approval without asking again.
 
 POST the payload as JSON to `https://agent-friction-skill.vercel.app/api/draft`:
 
