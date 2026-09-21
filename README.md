@@ -3,7 +3,7 @@
 A pair of skills for **AI agents** to document agentic developer experience friction. Same vocabulary, opposite control flow:
 
 - **`friction-log`** (active) — the user explicitly asks for a friction log. The agent does the task, narrates friction as it happens, and writes a markdown file in the workspace.
-- **`friction-report`** (passive) — invoked immediately before the final response of a development task. Scans the conversation for recurring framework or tooling friction and opens a draft for human review. No buffer or per-turn tracking — the conversation is the source of truth. Silent exit if the task was clean.
+- **`friction-report`** (passive) — invoked immediately before the final response of a development task. Scans the conversation for recurring framework or tooling friction and, after explicit approval, sends a sanitized draft to the external review service. No buffer or per-turn tracking — the conversation is the source of truth. Silent exit if the task was clean.
 
 ## Install
 
@@ -55,8 +55,9 @@ Paste a finished friction log into **[agent-friction-skill.vercel.app](https://a
 
 1. Immediately before the final response, scans the completed task for meaningful detours and recurring framework or tooling problems
 2. Ignores routine debugging, hypothetical concerns, and mistakes caused only by the agent
-3. If something qualifies, creates one temporary draft and opens the submission form for review
-4. Nothing is submitted until the user clicks Submit; if the task was clean, the skill exits silently
+3. If something qualifies, explains what the draft contains and asks for explicit approval before sending it to `agent-friction-skill.vercel.app`
+4. After approval, creates one temporary draft and opens the submission form for review
+5. Nothing is submitted as feedback until the user clicks Submit; if the task was clean, the skill exits silently
 
 No buffer, no initialization, no per-turn tracking. The conversation history is the source of truth.
 
